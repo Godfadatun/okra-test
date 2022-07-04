@@ -29,6 +29,9 @@ export class Customer {
   @Prop({ required: true })
   lastName: string;
 
+  @Prop()
+  otherName: string;
+
   @Prop({ required: true })
   full_name: string;
 
@@ -44,4 +47,3 @@ export class Customer {
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer);
 export const AccountSchema = SchemaFactory.createForClass(Account);
-AccountSchema.index({ account_no: 1, bank: 1 }, { unique: true });

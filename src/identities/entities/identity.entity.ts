@@ -68,7 +68,7 @@ export class Identity {
   @Prop()
   state_residence: string;
 
-  @Prop()
+  @Prop({ type: mongoose.Schema.Types.Mixed })
   state_origin: {
     bank: string;
     registration_date: string;

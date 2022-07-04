@@ -16,16 +16,24 @@ import { CustomersService } from './customers.service';
 import {
   CreateCustomerControllerDto,
   updateAccountDto,
+  verifyCustomerControllerDto,
 } from './dto/update-customer.dto';
 
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
-  @Get()
-  findAll() {
-    return this.customersService.findAll();
-  }
+  // @UseGuards(PrincipalGuard)
+  // @Post('process')
+  // @UsePipes(new ValidationPipe())
+  // verify(
+  //   @Param('id') id: string,
+  //   @Body() verify: verifyCustomerControllerDto,
+  //   @Request() req,
+  // ) {
+  //   const payload = { ...verify, user_id: req.user.userId };
+  //   return this.customersService.verifyCustomer(id, payload);
+  // }
 
   @UseGuards(PrincipalGuard)
   @Post()

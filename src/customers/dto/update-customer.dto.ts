@@ -7,6 +7,9 @@ export class CreateCustomerControllerDto {
   @IsNotEmpty()
   lastName: string;
 
+  @IsOptional()
+  otherName: string;
+
   @IsNotEmpty()
   email: string;
 
@@ -20,4 +23,17 @@ export class updateAccountDto {
 
   @IsNotEmpty()
   nuban: string;
+}
+
+export class verifyCustomerControllerDto {
+  @IsNotEmpty()
+  bvn: string;
+}
+
+export class verifyCustomerDto {
+  @IsNotEmpty()
+  bvn: string;
+
+  @IsNotEmpty()
+  user_id: string;
 }

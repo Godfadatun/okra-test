@@ -10,10 +10,23 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { UtilsService } from 'src/utils/utils.service';
 import { IdentitiesService } from 'src/identities/identities.service';
+import {
+  Identity,
+  IdentitySchema,
+} from 'src/identities/entities/identity.entity';
+import {
+  Customer,
+  CustomerSchema,
+} from 'src/customers/entities/customer.entity';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    // eslint-disable-next-line prettier/prettier
+    MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
+      { name: Identity.name, schema: IdentitySchema },
+      { name: Customer.name, schema: CustomerSchema },
+    ]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: JWT_SECRET,

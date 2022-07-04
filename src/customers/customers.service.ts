@@ -6,7 +6,7 @@ import { CreateCustomerDto } from './dto/create-customer.dto';
 // import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { Customer, CustomerDocument } from './entities/customer.entity';
 import * as randomstring from 'randomstring';
-import { updateAccountDto } from './dto/update-customer.dto';
+import { updateAccountDto, verifyCustomerDto } from './dto/update-customer.dto';
 
 @Injectable()
 export class CustomersService {
@@ -21,6 +21,7 @@ export class CustomersService {
         user_id: user,
         phone_number,
         firstName,
+        otherName,
         lastName,
       } = createCustomer;
 
@@ -40,6 +41,7 @@ export class CustomersService {
         lastName,
         full_name: `${firstName} ${lastName}`,
         user,
+        ...(otherName && { otherName }),
         ...(phone_number && { phone_number }),
       });
       await createdCustomer.save();
@@ -58,7 +60,7 @@ export class CustomersService {
     const updatedCustomer = await this.customerModel
       .findOneAndUpdate(
         {
-          _id: id,
+          code: id,
           'accounts.account_no': { $ne: account_no },
         },
         { $addToSet: { accounts: { account_no, bank } } },
@@ -70,8 +72,6 @@ export class CustomersService {
         _id: 0,
       })
       .exec();
-    console.log({ updatedCustomer });
-
     if (!updatedCustomer) throw new NotFoundException('Account Already Exists');
 
     return this.utils.sendObjectResponse(
@@ -80,9 +80,9 @@ export class CustomersService {
     );
   }
 
-  findAll() {
-    return `This action returns all customers`;
-  }
+  // async verifyCustomer(id: string, payload: verifyCustomerDto) {
+  //   return `This action returns all customers`;
+  // }
 
   findOne(id: number) {
     return `This action returns a #${id} customer`;
